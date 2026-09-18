@@ -2,989 +2,954 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>โครงสร้างโลก 3 มิติ</title>
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<title>โครงสร้างโลก 3 มิติ | Journey to the Core</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap"
+rel="stylesheet">
 
 <style>
+
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 html,body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  font-family:Arial,"Tahoma",sans-serif;
-  color:white;
-  background:#020817;
+    min-height:100%;
 }
 
 body{
-  background:
-    radial-gradient(circle at 40% 45%,#063b78 0%,transparent 28%),
-    radial-gradient(circle at 80% 20%,#061f48 0%,transparent 25%),
-    #020817;
+    font-family:"Prompt",sans-serif;
+    color:white;
+
+    background:
+    radial-gradient(
+        circle at 20% 20%,
+        rgba(40,120,220,.18),
+        transparent 32%
+    ),
+    radial-gradient(
+        circle at 80% 80%,
+        rgba(130,40,200,.12),
+        transparent 30%
+    ),
+    #020611;
+
+    overflow-x:hidden;
 }
 
 /* ดาว */
-.stars{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
+
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.35;
+
+    background-image:
+        radial-gradient(circle,#fff 1px,transparent 1px),
+        radial-gradient(circle,#fff .7px,transparent .7px);
+
+    background-size:
+        130px 130px,
+        210px 210px;
+
+    background-position:
+        20px 30px,
+        80px 100px;
 }
 
-.star{
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  border-radius:50%;
-  opacity:.7;
+/* HEADER */
+
+header{
+    position:relative;
+    z-index:2;
+
+    text-align:center;
+
+    padding:24px 15px 18px;
 }
 
-/* หัวเว็บ */
-.header{
-  position:absolute;
-  top:22px;
-  left:30px;
-  z-index:10;
+header h1{
+    font-size:clamp(28px,5vw,48px);
+
+    font-weight:700;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #70c8ff
+        );
+
+    -webkit-background-clip:text;
+    color:transparent;
 }
 
-.header h1{
-  margin:0;
-  font-size:42px;
-  color:#fff;
-  text-shadow:0 0 20px #198cff;
+header p{
+    margin-top:5px;
+
+    color:#91a9c0;
+
+    font-size:14px;
 }
 
-.header p{
-  margin:5px 0;
-  font-size:17px;
-  color:#b9dfff;
+/* MAIN */
+
+.main{
+    position:relative;
+    z-index:2;
+
+    width:94%;
+    max-width:1500px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1.5fr)
+        minmax(350px,.75fr);
+
+    gap:20px;
 }
 
-/* พื้นที่โลก */
-#earthArea{
-  position:absolute;
-  left:2%;
-  right:31%;
-  top:8%;
-  bottom:5%;
+/* LEFT */
+
+.left{
+    min-width:0;
 }
 
-/* โลก */
-#earth{
-  width:100%;
-  height:100%;
+/* EARTH */
+
+.earth-box{
+
+    position:relative;
+
+    height:650px;
+
+    min-height:500px;
+
+    overflow:hidden;
+
+    border-radius:28px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.13);
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(25,80,140,.15),
+            transparent 60%
+        ),
+        #020712;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.5),
+        inset 0 0 80px rgba(50,150,255,.04);
 }
 
-/* ปุ่มควบคุม */
-.controls{
-  position:absolute;
-  left:28px;
-  top:42%;
-  z-index:20;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+/* โมเดล Sketchfab */
+
+.earth-box iframe{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    border:0;
+
+    border-radius:28px;
 }
 
-.controls button{
-  width:62px;
-  height:62px;
-  border-radius:16px;
-  border:1px solid #1687ed;
-  background:#03182cdd;
-  color:white;
-  font-size:26px;
-  cursor:pointer;
-  box-shadow:0 0 20px #0879db44;
+/* ป้าย */
+
+.model-title{
+
+    position:absolute;
+
+    top:16px;
+    left:16px;
+
+    z-index:5;
+
+    padding:9px 14px;
+
+    border-radius:999px;
+
+    background:
+        rgba(3,10,20,.78);
+
+    border:
+        1px solid
+        rgba(255,255,255,.14);
+
+    backdrop-filter:blur(10px);
+
+    font-size:12px;
+
+    color:#ccecff;
+
+    pointer-events:none;
 }
 
-.controls small{
-  display:block;
-  font-size:10px;
+/* คำแนะนำ */
+
+.touch-help{
+
+    position:absolute;
+
+    right:16px;
+    bottom:16px;
+
+    z-index:5;
+
+    padding:9px 13px;
+
+    border-radius:12px;
+
+    background:
+        rgba(3,10,20,.75);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    color:#a9bdd0;
+
+    font-size:11px;
+
+    pointer-events:none;
 }
 
-/* แถบเลือกชั้น */
+/* LAYERS */
+
 .layers{
-  position:absolute;
-  left:13%;
-  right:32%;
-  bottom:25px;
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  z-index:20;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:10px;
+
+    margin-top:14px;
 }
 
 .layer{
-  width:105px;
-  height:92px;
-  border-radius:18px;
-  border:1px solid #164c7b;
-  background:#04182bdd;
-  color:white;
-  cursor:pointer;
+
+    padding:13px 7px;
+
+    border-radius:15px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.11);
+
+    background:
+        rgba(10,19,34,.85);
+
+    color:white;
+
+    font-family:inherit;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.layer:hover{
+
+    transform:translateY(-2px);
+
+    background:
+        rgba(30,55,80,.9);
 }
 
 .layer.active{
-  border-color:#2798ff;
-  box-shadow:0 0 25px #148aff77;
+
+    border-color:#62c4ff;
+
+    box-shadow:
+        0 0 22px
+        rgba(70,180,255,.16);
 }
 
-.layerIcon{
-  width:48px;
-  height:48px;
-  margin:7px auto 3px;
-  border-radius:50%;
+.layer-icon{
+    display:block;
+
+    font-size:20px;
+
+    margin-bottom:4px;
 }
 
-.crust{
-  background:radial-gradient(circle at 35% 30%,#a66c3b,#4c2412);
+.layer-name{
+    font-size:12px;
 }
 
-.mantle{
-  background:radial-gradient(circle at 35% 30%,#ffbf35,#e13d0b);
+.layer-en{
+    color:#8298ac;
+
+    font-size:10px;
 }
 
-.outer{
-  background:radial-gradient(circle at 35% 30%,#ff633c,#94140a);
+/* RIGHT */
+
+.details{
+
+    border-radius:26px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    padding:25px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(13,25,43,.94),
+            rgba(5,12,22,.94)
+        );
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.4);
 }
 
-.inner{
-  background:radial-gradient(circle at 35% 30%,#fff36a,#ff9d00);
+.details h2{
+
+    font-size:25px;
 }
 
-.layer span{
-  font-size:12px;
+.details-sub{
+
+    color:#8198ad;
+
+    font-size:13px;
+
+    margin-top:3px;
 }
 
-/* กล่องข้อมูล */
-.infoPanel{
-  position:absolute;
-  top:10%;
-  right:22px;
-  bottom:5%;
-  width:30%;
-  min-width:310px;
-  z-index:15;
+/* TABS */
 
-  background:linear-gradient(
-    180deg,
-    #04172aec,
-    #020c18f5
-  );
-
-  border:1px solid #1586ee;
-  border-radius:22px;
-
-  box-shadow:
-    0 20px 60px #000b,
-    inset 0 1px #ffffff18;
-
-  overflow:auto;
-}
-
-.infoPanel h2{
-  margin:0;
-  padding:22px;
-  font-size:25px;
-}
-
-/* แท็บ */
 .tabs{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:7px;
-  padding:0 15px 15px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:6px;
+
+    margin-top:20px;
 }
 
-.tabs button{
-  padding:10px 4px;
-  border-radius:12px;
-  border:1px solid #1764a5;
-  background:#06182a;
-  color:#cce7ff;
-  cursor:pointer;
-  font-size:11px;
+.tab{
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    background:
+        rgba(255,255,255,.035);
+
+    color:#91a5b8;
+
+    border-radius:10px;
+
+    padding:9px 4px;
+
+    font-family:inherit;
+
+    font-size:11px;
+
+    cursor:pointer;
 }
 
-.tabs button.active{
-  background:#287ff0;
-  color:white;
+.tab.active{
+
+    color:white;
+
+    background:
+        rgba(50,130,200,.25);
+
+    border-color:
+        rgba(80,180,255,.4);
 }
 
-/* ข้อมูล */
+/* CONTENT */
+
 .content{
-  padding:8px 22px 30px;
+
+    margin-top:20px;
 }
 
-.title{
-  font-size:24px;
-  font-weight:bold;
-  color:#76c3ff;
-  margin-bottom:10px;
+.content h3{
+
+    font-size:25px;
+
+    margin-bottom:4px;
 }
 
-.description{
-  line-height:1.7;
-  color:#d9eaff;
+.depth{
+
+    color:#62c5ff;
+
+    font-size:13px;
+
+    margin-bottom:17px;
 }
 
-.data{
-  margin-top:18px;
-}
+.content p{
 
-.dataBox{
-  padding:13px;
-  margin-bottom:9px;
-  border-radius:14px;
-  background:#06192b;
-  border:1px solid #17466e;
-}
+    color:#c0cedb;
 
-.dataBox b{
-  display:block;
-  margin-bottom:4px;
-}
+    font-size:14px;
 
-.dataBox span{
-  color:#afd0ed;
+    line-height:1.8;
 }
 
 .fact{
-  margin-top:18px;
-  padding:16px;
-  border-radius:15px;
-  background:#071d31;
-  border:1px solid #27638d;
-  line-height:1.6;
+
+    margin-top:20px;
+
+    padding:15px;
+
+    border-radius:15px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
 }
 
-.fact b{
-  color:#ffd44d;
+.fact-title{
+
+    font-weight:600;
+
+    margin-bottom:8px;
 }
 
-/* มือถือ */
-@media(max-width:850px){
+.fact ul{
 
-  .header{
-    top:12px;
-    left:15px;
-  }
+    padding-left:19px;
 
-  .header h1{
-    font-size:27px;
-  }
+    color:#aebdca;
 
-  .header p{
-    font-size:12px;
-  }
+    font-size:13px;
 
-  #earthArea{
-    left:0;
-    right:0;
-    top:9%;
-    bottom:38%;
-  }
-
-  .controls{
-    left:10px;
-    top:30%;
-  }
-
-  .controls button{
-    width:48px;
-    height:48px;
-    font-size:20px;
-  }
-
-  .layers{
-    left:8px;
-    right:8px;
-    bottom:40%;
-    justify-content:flex-start;
-    overflow-x:auto;
-  }
-
-  .layer{
-    min-width:82px;
-    height:70px;
-  }
-
-  .layerIcon{
-    width:34px;
-    height:34px;
-  }
-
-  .infoPanel{
-    left:10px;
-    right:10px;
-    top:auto;
-    bottom:10px;
-    width:auto;
-    min-width:0;
-    max-height:37%;
-  }
+    line-height:1.8;
 }
+
+/* CREDIT */
+
+.credit{
+
+    position:relative;
+    z-index:2;
+
+    text-align:center;
+
+    padding:16px 10px 25px;
+
+    color:#62768a;
+
+    font-size:10px;
+}
+
+.credit a{
+
+    color:#70c8ff;
+
+    text-decoration:none;
+}
+
+/* TABLET */
+
+@media(max-width:1000px){
+
+    .main{
+
+        grid-template-columns:1fr;
+    }
+
+    .earth-box{
+
+        height:600px;
+    }
+
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    header{
+
+        padding:
+            18px
+            10px
+            12px;
+    }
+
+    header h1{
+
+        font-size:27px;
+    }
+
+    header p{
+
+        font-size:11px;
+    }
+
+    .main{
+
+        width:94%;
+    }
+
+    .earth-box{
+
+        height:480px;
+
+        min-height:480px;
+
+        border-radius:20px;
+    }
+
+    .earth-box iframe{
+
+        border-radius:20px;
+    }
+
+    .model-title{
+
+        top:10px;
+        left:10px;
+
+        font-size:10px;
+
+        padding:
+            7px 10px;
+    }
+
+    .touch-help{
+
+        right:10px;
+        bottom:10px;
+
+        font-size:9px;
+
+        padding:
+            7px 9px;
+    }
+
+    .layers{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .details{
+
+        padding:18px;
+
+        border-radius:20px;
+    }
+
+    .details h2{
+
+        font-size:21px;
+    }
+
+    .content h3{
+
+        font-size:21px;
+    }
+
+    .content p{
+
+        font-size:13px;
+    }
+
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="stars" id="stars"></div>
+<header>
 
-<div class="header">
-  <h1>🌍 โครงสร้างโลก 3 มิติ</h1>
-  <p>สำรวจภายในโลกของเรา ตั้งแต่เปลือกโลกจนถึงแก่นโลก</p>
+    <h1>
+        🌍 โครงสร้างโลก 3 มิติ
+    </h1>
+
+    <p>
+        Journey to the Core — สำรวจโลกตั้งแต่เปลือกโลกจนถึงแก่นโลก
+    </p>
+
+</header>
+
+
+<div class="main">
+
+
+<!-- ==============================
+     โลก 3D
+================================ -->
+
+<section class="left">
+
+    <div class="earth-box">
+
+        <div class="model-title">
+            🌍 Earth Core V2 • Interactive 3D
+        </div>
+
+        <iframe
+            title="Earth Core V2"
+            src="https://sketchfab.com/models/6ba6e494d58c4465a45d7df85bffe97b/embed?autostart=1&ui_theme=dark&dnt=1"
+            allow="autoplay; fullscreen; xr-spatial-tracking"
+            allowfullscreen>
+        </iframe>
+
+        <div class="touch-help">
+            👆 ลากเพื่อหมุน • 🤏 กาง/หุบเพื่อซูม
+        </div>
+
+    </div>
+
+
+    <!-- ชั้นโลก -->
+
+    <div class="layers">
+
+        <button
+            class="layer active"
+            onclick="showLayer(0)">
+
+            <span class="layer-icon">🪨</span>
+
+            <span class="layer-name">
+                เปลือกโลก
+            </span>
+
+            <span class="layer-en">
+                Crust
+            </span>
+
+        </button>
+
+
+        <button
+            class="layer"
+            onclick="showLayer(1)">
+
+            <span class="layer-icon">🔥</span>
+
+            <span class="layer-name">
+                เนื้อโลก
+            </span>
+
+            <span class="layer-en">
+                Mantle
+            </span>
+
+        </button>
+
+
+        <button
+            class="layer"
+            onclick="showLayer(2)">
+
+            <span class="layer-icon">🌋</span>
+
+            <span class="layer-name">
+                แก่นโลกชั้นนอก
+            </span>
+
+            <span class="layer-en">
+                Outer Core
+            </span>
+
+        </button>
+
+
+        <button
+            class="layer"
+            onclick="showLayer(3)">
+
+            <span class="layer-icon">🔴</span>
+
+            <span class="layer-name">
+                แก่นโลกชั้นใน
+            </span>
+
+            <span class="layer-en">
+                Inner Core
+            </span>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ==============================
+     รายละเอียด
+================================ -->
+
+<aside class="details">
+
+    <h2>
+        รายละเอียดแต่ละชั้น
+    </h2>
+
+    <div class="details-sub">
+        กดเลือกชั้นเพื่อศึกษาข้อมูล
+    </div>
+
+
+    <div class="tabs">
+
+        <button
+            class="tab active"
+            onclick="showLayer(0)">
+            เปลือกโลก
+        </button>
+
+        <button
+            class="tab"
+            onclick="showLayer(1)">
+            เนื้อโลก
+        </button>
+
+        <button
+            class="tab"
+            onclick="showLayer(2)">
+            แก่นนอก
+        </button>
+
+        <button
+            class="tab"
+            onclick="showLayer(3)">
+            แก่นใน
+        </button>
+
+    </div>
+
+
+    <div
+        id="content"
+        class="content">
+    </div>
+
+</aside>
+
 </div>
 
-<div id="earthArea"></div>
 
-<div class="controls">
-  <button onclick="resetEarth()">↻<small>รีเซ็ต</small></button>
-  <button onclick="zoomIn()">＋<small>ซูม</small></button>
-  <button onclick="zoomOut()">−<small>ออก</small></button>
-</div>
+<div class="credit">
 
-<!-- ปุ่มเลือกชั้น -->
-<div class="layers">
-
-  <button class="layer active" onclick="selectLayer('all',this)">
-    <div class="layerIcon crust"></div>
-    <span>ทั้งหมด</span>
-  </button>
-
-  <button class="layer" onclick="selectLayer('crust',this)">
-    <div class="layerIcon crust"></div>
-    <span>เปลือกโลก</span>
-  </button>
-
-  <button class="layer" onclick="selectLayer('mantle',this)">
-    <div class="layerIcon mantle"></div>
-    <span>เนื้อโลก</span>
-  </button>
-
-  <button class="layer" onclick="selectLayer('outer',this)">
-    <div class="layerIcon outer"></div>
-    <span>แก่นโลกชั้นนอก</span>
-  </button>
-
-  <button class="layer" onclick="selectLayer('inner',this)">
-    <div class="layerIcon inner"></div>
-    <span>แก่นโลกชั้นใน</span>
-  </button>
+    โมเดล 3D:
+    <a
+        href="https://sketchfab.com/3d-models/earth-core-v2-6ba6e494d58c4465a45d7df85bffe97b"
+        target="_blank">
+        Earth Core V2 by Ipay
+    </a>
+    • CC BY
 
 </div>
 
-<!-- ข้อมูล -->
-<div class="infoPanel">
-
-  <h2>รายละเอียดแต่ละชั้น</h2>
-
-  <div class="tabs">
-
-    <button class="active" onclick="showInfo('crust',this)">
-      เปลือกโลก
-    </button>
-
-    <button onclick="showInfo('mantle',this)">
-      เนื้อโลก
-    </button>
-
-    <button onclick="showInfo('outer',this)">
-      แก่นนอก
-    </button>
-
-    <button onclick="showInfo('inner',this)">
-      แก่นใน
-    </button>
-
-  </div>
-
-  <div class="content" id="content"></div>
-
-</div>
 
 <script>
 
-/* =========================
-   ดาวพื้นหลัง
-========================= */
+/* ===================================
+   ข้อมูล 4 ชั้นของโลก
+=================================== */
 
-for(let i=0;i<180;i++){
+const data = [
 
-  const star=document.createElement("div");
+{
+    name:"เปลือกโลก",
 
-  star.className="star";
+    en:"Crust",
 
-  star.style.left=Math.random()*100+"%";
-  star.style.top=Math.random()*100+"%";
+    depth:
+    "ความหนาประมาณ 5–70 กิโลเมตร",
 
-  star.style.opacity=.2+Math.random()*.8;
+    text:
+    "เปลือกโลกเป็นชั้นนอกสุดของโลก เป็นบริเวณที่มนุษย์อาศัยอยู่ และเป็นชั้นที่บางที่สุดของโครงสร้างโลก แบ่งออกเป็นเปลือกโลกทวีปและเปลือกโลกมหาสมุทร โดยเปลือกโลกทวีปโดยทั่วไปมีความหนามากกว่าเปลือกโลกมหาสมุทร",
 
-  document.getElementById("stars")
-    .appendChild(star);
+    facts:[
+        "เป็นชั้นนอกสุดของโลก",
+        "ประกอบด้วยหินและแร่หลายชนิด",
+        "มีทั้งส่วนที่เป็นทวีปและมหาสมุทร",
+        "เป็นส่วนหนึ่งของแผ่นธรณีภาค"
+    ]
+},
+
+{
+    name:"เนื้อโลก",
+
+    en:"Mantle",
+
+    depth:
+    "ลึกประมาณ 70–2,900 กิโลเมตร",
+
+    text:
+    "เนื้อโลกเป็นชั้นที่อยู่ใต้เปลือกโลกและมีความหนามากที่สุด ประกอบด้วยหินซิลิเกตที่มีแมกนีเซียมและเหล็กเป็นองค์ประกอบสำคัญ ภายในชั้นนี้มีการถ่ายเทความร้อนและการเคลื่อนที่ของสสารอย่างช้า ๆ",
+
+    facts:[
+        "เป็นชั้นที่มีความหนามากที่สุด",
+        "มีอุณหภูมิสูงขึ้นตามความลึก",
+        "เกิดการพาความร้อนภายใน",
+        "เกี่ยวข้องกับการเคลื่อนที่ของแผ่นธรณีภาค"
+    ]
+},
+
+{
+    name:"แก่นโลกชั้นนอก",
+
+    en:"Outer Core",
+
+    depth:
+    "ลึกประมาณ 2,900–5,150 กิโลเมตร",
+
+    text:
+    "แก่นโลกชั้นนอกอยู่ใต้เนื้อโลก มีเหล็กและนิกเกิลเป็นองค์ประกอบสำคัญ และอยู่ในสถานะของเหลว การเคลื่อนที่ของโลหะเหลวภายในบริเวณนี้มีความเกี่ยวข้องกับการเกิดสนามแม่เหล็กโลก",
+
+    facts:[
+        "อยู่ในสถานะของเหลว",
+        "มีเหล็กและนิกเกิลเป็นองค์ประกอบหลัก",
+        "มีอุณหภูมิและความดันสูงมาก",
+        "เกี่ยวข้องกับสนามแม่เหล็กโลก"
+    ]
+},
+
+{
+    name:"แก่นโลกชั้นใน",
+
+    en:"Inner Core",
+
+    depth:
+    "ลึกประมาณ 5,150–6,371 กิโลเมตร",
+
+    text:
+    "แก่นโลกชั้นในเป็นบริเวณใจกลางโลก มีเหล็กและนิกเกิลเป็นองค์ประกอบสำคัญ แม้จะมีอุณหภูมิสูงมาก แต่ความดันมหาศาลทำให้บริเวณนี้มีสถานะเป็นของแข็ง",
+
+    facts:[
+        "อยู่ใจกลางโลก",
+        "มีเหล็กและนิกเกิลเป็นองค์ประกอบหลัก",
+        "มีอุณหภูมิสูงมาก",
+        "ความดันสูงทำให้เป็นของแข็ง"
+    ]
 }
 
-
-/* =========================
-   ข้อมูลแต่ละชั้น
-========================= */
-
-const data={
-
-crust:{
- title:"เปลือกโลก (Crust)",
-
- desc:
- "เป็นชั้นนอกสุดของโลก เป็นชั้นที่มนุษย์อาศัยอยู่ ประกอบด้วยหินและแร่หลายชนิด และเป็นบริเวณที่เกิดภูมิประเทศต่าง ๆ เช่น ภูเขา ที่ราบ และพื้นมหาสมุทร",
-
- items:[
- ["ความลึก","ประมาณ 0–70 กิโลเมตร"],
- ["สถานะ","ของแข็ง"],
- ["องค์ประกอบ","หินและแร่หลายชนิด"],
- ["อุณหภูมิ","เพิ่มขึ้นตามความลึก"]
- ],
-
- fact:
- "เปลือกโลกมีทั้งเปลือกโลกทวีปและเปลือกโลกมหาสมุทร ซึ่งมีความหนาแตกต่างกัน"
-},
-
-mantle:{
- title:"เนื้อโลก (Mantle)",
-
- desc:
- "อยู่ถัดจากเปลือกโลกลงไปและเป็นชั้นที่มีความหนามากที่สุดของโลก ประกอบด้วยหินร้อนและแร่ซิลิเกต โดยมีการเคลื่อนที่อย่างช้ามากในช่วงเวลาทางธรณีวิทยา",
-
- items:[
- ["ความลึก","ประมาณ 70–2,900 กิโลเมตร"],
- ["สถานะ","ของแข็งเป็นหลัก"],
- ["องค์ประกอบ","แร่ซิลิเกต เหล็ก และแมกนีเซียม"],
- ["บทบาท","เกี่ยวข้องกับการเคลื่อนที่ของแผ่นธรณีภาค"]
- ],
-
- fact:
- "ความร้อนภายในโลกทำให้เกิดการถ่ายเทความร้อนภายในเนื้อโลก ซึ่งเกี่ยวข้องกับพลวัตของโลก"
-},
-
-outer:{
- title:"แก่นโลกชั้นนอก (Outer Core)",
-
- desc:
- "เป็นชั้นที่อยู่รอบแก่นโลกชั้นใน ประกอบด้วยโลหะร้อนเป็นหลักและมีสถานะเป็นของเหลว การไหลของโลหะนำไฟฟ้าภายในชั้นนี้เกี่ยวข้องกับสนามแม่เหล็กโลก",
-
- items:[
- ["ความลึก","ประมาณ 2,900–5,150 กิโลเมตร"],
- ["สถานะ","ของเหลว"],
- ["องค์ประกอบ","เหล็กและนิกเกิลเป็นหลัก"],
- ["บทบาท","เกี่ยวข้องกับสนามแม่เหล็กโลก"]
- ],
-
- fact:
- "การไหลเวียนของโลหะเหลวในแก่นโลกชั้นนอกมีส่วนสำคัญต่อการเกิดสนามแม่เหล็กโลก"
-},
-
-inner:{
- title:"แก่นโลกชั้นใน (Inner Core)",
-
- desc:
- "เป็นบริเวณใจกลางโลก มีความดันมหาศาล แม้อุณหภูมิสูงมาก แต่ความดันที่สูงทำให้โลหะบริเวณนี้อยู่ในสภาพของแข็งเป็นหลัก",
-
- items:[
- ["ความลึก","ประมาณ 5,150–6,371 กิโลเมตร"],
- ["สถานะ","ของแข็ง"],
- ["องค์ประกอบ","เหล็กและนิกเกิลเป็นหลัก"],
- ["อุณหภูมิ","หลายพันองศาเซลเซียส"]
- ],
-
- fact:
- "แก่นโลกชั้นในอยู่บริเวณใจกลางโลกและมีความดันสูงมาก"
-}
-
-};
+];
 
 
-/* =========================
+/* ===================================
    แสดงข้อมูล
-========================= */
+=================================== */
 
-function showInfo(type,button){
+function showLayer(index){
 
- document.querySelectorAll(".tabs button")
-   .forEach(b=>b.classList.remove("active"));
+    /* ปุ่มด้านล่าง */
 
- button.classList.add("active");
+    document
+    .querySelectorAll(".layer")
+    .forEach(
+        (button,i)=>{
+            button.classList.toggle(
+                "active",
+                i===index
+            );
+        }
+    );
 
- const d=data[type];
 
- document.getElementById("content").innerHTML=`
+    /* ปุ่มด้านขวา */
 
- <div class="title">
-   ${d.title}
- </div>
+    document
+    .querySelectorAll(".tab")
+    .forEach(
+        (button,i)=>{
+            button.classList.toggle(
+                "active",
+                i===index
+            );
+        }
+    );
 
- <div class="description">
-   ${d.desc}
- </div>
 
- <div class="data">
+    const item=data[index];
 
- ${d.items.map(x=>`
 
-   <div class="dataBox">
+    document.getElementById("content")
+    .innerHTML=`
 
-     <b>${x[0]}</b>
+        <h3>
+            ${item.name}
+        </h3>
 
-     <span>${x[1]}</span>
+        <div class="depth">
 
-   </div>
+            ${item.en}
+            •
+            ${item.depth}
 
- `).join("")}
+        </div>
 
- </div>
+        <p>
 
- <div class="fact">
+            ${item.text}
 
-   <b>💡 รู้หรือไม่?</b>
+        </p>
 
-   <br>
+        <div class="fact">
 
-   ${d.fact}
+            <div class="fact-title">
+                💡 สิ่งที่ควรรู้
+            </div>
 
- </div>
+            <ul>
 
- `;
+                ${item.facts
+                    .map(
+                        fact =>
+                        `<li>${fact}</li>`
+                    )
+                    .join("")
+                }
 
-}
+            </ul>
 
-showInfo(
- "crust",
- document.querySelector(".tabs button")
-);
-
-
-/* =========================
-   ระบบโลก 3D
-========================= */
-
-let canvas=
-document.createElement("canvas");
-
-canvas.width=800;
-canvas.height=800;
-
-canvas.style.width="100%";
-canvas.style.height="100%";
-
-document.getElementById("earthArea")
-.appendChild(canvas);
-
-const ctx=canvas.getContext("2d");
-
-let rotation=0;
-let scale=1;
-let dragging=false;
-let oldX=0;
-
-
-/* วาดโลก */
-
-function drawEarth(){
-
- ctx.clearRect(
-   0,0,
-   canvas.width,
-   canvas.height
- );
-
- const cx=400;
- const cy=370;
- const R=220*scale;
-
-
- /* เงา */
- ctx.beginPath();
-
- ctx.arc(
-   cx,
-   cy,
-   R,
-   0,
-   Math.PI*2
- );
-
- const ocean=
- ctx.createRadialGradient(
-   cx-70,
-   cy-80,
-   20,
-   cx,
-   cy,
-   R
- );
-
- ocean.addColorStop(0,"#4ecbff");
- ocean.addColorStop(.4,"#0877d1");
- ocean.addColorStop(1,"#021c5c");
-
- ctx.fillStyle=ocean;
- ctx.fill();
-
-
- /* ทวีปแบบ stylized */
- ctx.fillStyle="#3fb75d";
-
- const continents=[
-   [-100,-80,55,85],
-   [30,-90,70,45],
-   [-30,10,55,80],
-   [90,30,50,70],
-   [15,100,70,35]
- ];
-
- continents.forEach(c=>{
-
-   ctx.beginPath();
-
-   ctx.ellipse(
-     cx+c[0],
-     cy+c[1],
-     c[2],
-     c[3],
-     rotation,
-     0,
-     Math.PI*2
-   );
-
-   ctx.fill();
-
- });
-
-
- /* แสงโลก */
-
- const glow=
- ctx.createRadialGradient(
-   cx-80,
-   cy-90,
-   20,
-   cx,
-   cy,
-   R
- );
-
- glow.addColorStop(
-   0,
-   "rgba(255,255,255,.18)"
- );
-
- glow.addColorStop(
-   1,
-   "rgba(0,100,255,0)"
- );
-
- ctx.fillStyle=glow;
-
- ctx.beginPath();
-
- ctx.arc(
-   cx,
-   cy,
-   R,
-   0,
-   Math.PI*2
- );
-
- ctx.fill();
-
-
- /* ตัดครึ่งโลก */
-
- ctx.save();
-
- ctx.beginPath();
-
- ctx.rect(
-   cx,
-   cy-R-5,
-   R+10,
-   R*2+10
- );
-
- ctx.clip();
-
-
- /* mantle */
-
- ctx.beginPath();
-
- ctx.arc(
-   cx,
-   cy,
-   R*.74,
-   0,
-   Math.PI*2
- );
-
- const mantle=
- ctx.createRadialGradient(
-   cx-40,
-   cy-40,
-   20,
-   cx,
-   cy,
-   R*.74
- );
-
- mantle.addColorStop(0,"#ffbd35");
- mantle.addColorStop(.55,"#ef5b13");
- mantle.addColorStop(1,"#9d1708");
-
- ctx.fillStyle=mantle;
-
- ctx.fill();
-
-
- /* outer core */
-
- ctx.beginPath();
-
- ctx.arc(
-   cx,
-   cy,
-   R*.48,
-   0,
-   Math.PI*2
- );
-
- ctx.fillStyle=
- "#c92713";
-
- ctx.fill();
-
-
- /* inner core */
-
- ctx.beginPath();
-
- ctx.arc(
-   cx,
-   cy,
-   R*.27,
-   0,
-   Math.PI*2
- );
-
- const core=
- ctx.createRadialGradient(
-   cx-25,
-   cy-25,
-   5,
-   cx,
-   cy,
-   R*.27
- );
-
- core.addColorStop(0,"#fff66b");
- core.addColorStop(.5,"#ffc400");
- core.addColorStop(1,"#ff7a00");
-
- ctx.fillStyle=core;
-
- ctx.fill();
-
- ctx.restore();
-
-
- /* เส้นแบ่งชั้น */
-
- ctx.lineWidth=5;
-
- ctx.strokeStyle="#ff9c28";
-
- ctx.beginPath();
-
- ctx.arc(
-   cx,
-   cy,
-   R*.74,
-   -Math.PI/2,
-   Math.PI/2
- );
-
- ctx.stroke();
-
- ctx.strokeStyle="#ff3b21";
-
- ctx.beginPath();
-
- ctx.arc(
-   cx,
-   cy,
-   R*.48,
-   -Math.PI/2,
-   Math.PI/2
- );
-
- ctx.stroke();
-
-
- /* ป้าย */
-
- label(
-   "เปลือกโลก",
-   cx+R*.78,
-   cy-R*.60,
-   "#35a9ff"
- );
-
- label(
-   "เนื้อโลก",
-   cx+R*.75,
-   cy-R*.15,
-   "#ff9c38"
- );
-
- label(
-   "แก่นโลกชั้นนอก",
-   cx+R*.60,
-   cy+R*.30,
-   "#ff4b39"
- );
-
- label(
-   "แก่นโลกชั้นใน",
-   cx+R*.35,
-   cy+R*.65,
-   "#ffe331"
- );
-
+        </div>
+    `;
 }
 
 
-function label(text,x,y,color){
+/* เริ่มต้น */
 
- ctx.font=
- "bold 20px Arial";
-
- ctx.fillStyle=color;
-
- ctx.fillText(
-   text,
-   x,
-   y
- );
-
-}
-
-
-/* =========================
-   หมุน
-========================= */
-
-canvas.addEventListener(
- "pointerdown",
- e=>{
-   dragging=true;
-   oldX=e.clientX;
- }
-);
-
-canvas.addEventListener(
- "pointermove",
- e=>{
-
-   if(!dragging)return;
-
-   rotation+=
-   (e.clientX-oldX)*.01;
-
-   oldX=e.clientX;
-
-   drawEarth();
-
- }
-);
-
-canvas.addEventListener(
- "pointerup",
- ()=>{
-   dragging=false;
- }
-);
-
-
-/* ซูม */
-
-function zoomIn(){
-
- scale=Math.min(
-   1.5,
-   scale+.1
- );
-
- drawEarth();
-
-}
-
-function zoomOut(){
-
- scale=Math.max(
-   .65,
-   scale-.1
- );
-
- drawEarth();
-
-}
-
-function resetEarth(){
-
- rotation=0;
- scale=1;
-
- drawEarth();
-
-}
-
-
-/* =========================
-   เลือกชั้น
-========================= */
-
-function selectLayer(type,button){
-
- document.querySelectorAll(".layer")
-   .forEach(x=>x.classList.remove("active"));
-
- button.classList.add("active");
-
- if(type!="all"){
-
-   const tab=
-   [...document.querySelectorAll(".tabs button")]
-   .find(x=>
-     x.textContent.includes(
-       type=="crust"?"เปลือก":
-       type=="mantle"?"เนื้อ":
-       type=="outer"?"แก่นนอก":
-       "แก่นใน"
-     )
-   );
-
-   if(tab)tab.click();
-
- }
-
- drawEarth();
-
-}
-
-
-drawEarth();
+showLayer(0);
 
 </script>
 
